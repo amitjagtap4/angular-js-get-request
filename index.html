@@ -2,21 +2,81 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="controller.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Title of the document</title>
 </head>
 
 <body>
-<div>
+<div class="container" ng-app="serviceApp" ng-controller="MyController">
+
+	<form ng-submit="createUser()">
+		<h4>Create User</h4>
+
+		<div class="form-group col-md-4 float-left" ng-show="userid">
+			<label class="control-label">ID</label>
+			<input type="number" ng-model="user.id" class="form-control">
+		</div>
+
+		<div class="form-group col-md-4 float-left" ng-show="username">
+			<label class="control-label">Name :</label>
+			<input type="text" ng-model="user.username" class="form-control">
+		</div>
+
+		<div class="form-group col-md-4 float-left" ng-show="useremail">
+			<label class="control-label">Email :</label>
+			<input type="text" ng-model="user.email" class="form-control">
+		</div>
+
+		<div class="col-md-2">
+        <input type="submit" value="submit" ng-show="submit" class="btn btn-success btn-sm" />
+        <input type="button" value="update" ng-show="update" ng-click="updateUser()" class="btn btn-success btn-sm" />
+        <input type="button" value="cancel" ng-show="cancel" ng-click="cancelupdate()" class="btn btn-danger btn-sm" /> 
+        </div>
+
+	</form>
+	<hr>
+	<span class="col-md-8 float-left"><h4>User List</h4></span>
+	<span class="col-md-2 float-right text-right"><button type="button" class="btn-sm btn-danger" ng-click="remove()">Delete All</button></span>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				 <td><input type="checkbox" name="" ng-click="selectAllFriends()"></td>
+				<td>Id</td>
+				<td>Name</td>
+				<td>Mail ID</td>
+				<td>Action</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in users">
+				<td><input type="checkbox" name="" ng-model="user.checked"></td>
+				<td>{{user.id}}</td>
+				<td>{{user.username}}</td>
+				<td>{{user.email}}</td>
+				<td>
+					<button ng-click="EditUser(user)" class="btn btn-success btn-sm">Edit</button>
+					<button ng-click="deleteuser(user)" class="btn btn-danger btn-sm">Delete</button>
+				</td>
+
+				
+			</tr>
+		</tbody>
+		
+	</table>
 	
-	 <div ng-app="serviceApp" ng-controller="MyController">
-    <ul>
-       <li ng-repeat="item in items">{{item.title}} </li>
-    </ul>
 </div>
 
-</div>
 </body>
 
 </html>
